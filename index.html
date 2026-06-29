@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Justin Gutierrez — Mechanical Engineering Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --black:#08080d; --deep:#0d0d16; --panel:#13131e; --panel-2:#171724; --border:#222234; --border-soft:#1a1a28;
+  --blue:#2b7fff; --blue-light:#6fa8ff; --blue-dim:#1a3a66;
+  --purple:#9b6bff; --purple-light:#b794ff; --purple-dim:#3a2a66;
+  --orange:#ff6b1a; --orange-light:#ff9259;
+  --text:#eaeaf2; --muted:#8888a3; --dim:#3d3d54;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--purple-dim);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2.5rem;background:rgba(8,8,13,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-soft);}
+.nav-logo{font-family:'Space Mono',monospace;font-size:1rem;color:var(--orange);letter-spacing:0.04em;}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{font-size:0.8rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+
+/* HERO */
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 2.5rem 3rem;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;z-index:0;
+  background-image:linear-gradient(rgba(43,127,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(43,127,255,0.045) 1px,transparent 1px);
+  background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 35%,black 25%,transparent 72%);}
+.hero-glow-blue{position:absolute;top:14%;left:-8%;width:55%;height:55%;background:radial-gradient(ellipse,rgba(43,127,255,0.08) 0%,transparent 65%);z-index:0;pointer-events:none;}
+.hero-glow-purple{position:absolute;top:35%;right:-10%;width:50%;height:55%;background:radial-gradient(ellipse,rgba(155,107,255,0.07) 0%,transparent 65%);z-index:0;pointer-events:none;}
+.hero-content{position:relative;z-index:1;max-width:840px;}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--blue-light);letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:1.2rem;display:flex;align-items:center;gap:0.7rem;}
+.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--blue);display:inline-block;}
+h1{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:700;line-height:1.08;letter-spacing:-0.02em;margin-bottom:1.4rem;}
+.hero-desc{font-size:1.08rem;color:var(--muted);line-height:1.75;max-width:560px;margin-bottom:2.2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.55rem;margin-bottom:2.5rem;}
+.tag{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--blue-light);border:1px solid rgba(43,127,255,0.28);
+  border-radius:3px;padding:0.3rem 0.7rem;letter-spacing:0.08em;text-transform:uppercase;}
+.tag.purple{color:var(--purple-light);border-color:rgba(155,107,255,0.3);}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:var(--orange);color:#fff;font-weight:600;font-size:0.88rem;padding:0.75rem 1.7rem;border-radius:4px;
+  border:none;cursor:pointer;letter-spacing:0.04em;transition:background 0.2s,transform 0.15s;}
+.btn-primary:hover{background:var(--orange-light);transform:translateY(-1px);}
+.btn-ghost{color:var(--text);font-weight:500;font-size:0.88rem;padding:0.75rem 1.7rem;border-radius:4px;border:1px solid var(--dim);
+  cursor:pointer;letter-spacing:0.04em;transition:border-color 0.2s,color 0.2s;display:inline-block;}
+.btn-ghost:hover{border-color:var(--purple);color:var(--purple-light);}
+
+/* INFO STRIP */
+.info-strip{padding:1.5rem 2.5rem;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);
+  display:flex;gap:3rem;flex-wrap:wrap;background:var(--deep);position:relative;z-index:1;}
+.info-item{display:flex;flex-direction:column;gap:0.3rem;}
+.info-label{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;}
+.info-value{font-size:0.92rem;color:var(--text);font-weight:500;}
+
+/* SECTION */
+section{padding:5rem 2.5rem;}
+.section-header{display:flex;align-items:center;gap:1rem;margin-bottom:3.2rem;}
+.section-number{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--orange);letter-spacing:0.14em;}
+.section-title{font-size:1.7rem;font-weight:600;letter-spacing:-0.02em;}
+.section-line{flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
+.section-sub{color:var(--muted);font-size:0.95rem;max-width:560px;margin:-1.5rem 0 3rem;line-height:1.7;}
+
+/* TIMELINE */
+.timeline{position:relative;max-width:920px;}
+.timeline-spine{position:absolute;left:20px;top:10px;bottom:10px;width:1px;
+  background:linear-gradient(to bottom,var(--blue),var(--purple) 50%,var(--orange) 85%,transparent);}
+.timeline-item{position:relative;padding:0 0 2.4rem 5rem;}
+.timeline-item:last-child{padding-bottom:0;}
+.timeline-dot{position:absolute;left:13px;top:10px;width:15px;height:15px;border-radius:50%;background:var(--panel);
+  border:2px solid var(--blue);transition:all 0.35s cubic-bezier(.34,1.56,.64,1);cursor:pointer;}
+.timeline-item.in-progress .timeline-dot{border-color:var(--purple);border-style:dashed;}
+.timeline-item:hover .timeline-dot{border-color:var(--orange);background:var(--orange);
+  box-shadow:0 0 18px rgba(255,107,26,0.45);transform:scale(1.5);}
+
+.project-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  transition:all 0.35s cubic-bezier(.25,.46,.45,.94);cursor:pointer;position:relative;}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--blue),var(--purple));opacity:0;transition:opacity 0.3s;z-index:2;}
+.project-card:hover{border-color:rgba(43,127,255,0.4);transform:translateX(6px) scale(1.012);
+  box-shadow:0 10px 44px rgba(0,0,0,0.45),-4px 0 22px rgba(43,127,255,0.1);}
+.project-card:hover::before{opacity:1;}
+.card-hero-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--panel-2);}
+.card-body{padding:1.5rem 1.6rem;}
+.project-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.7rem;}
+.project-machine{font-family:'Space Mono',monospace;font-size:0.64rem;color:var(--orange);letter-spacing:0.1em;text-transform:uppercase;}
+.project-num{font-family:'Space Mono',monospace;font-size:0.64rem;color:var(--dim);}
+.project-title{font-size:1.18rem;font-weight:600;margin-bottom:0.55rem;letter-spacing:-0.01em;}
+.project-desc{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.1rem;}
+.project-skills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.1rem;}
+.skill-pill{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--blue-light);background:rgba(43,127,255,0.08);
+  border:1px solid rgba(43,127,255,0.2);border-radius:2px;padding:0.24rem 0.5rem;letter-spacing:0.06em;}
+.skill-pill.purple{color:var(--purple-light);background:rgba(155,107,255,0.08);border-color:rgba(155,107,255,0.22);}
+.project-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--blue-light);letter-spacing:0.04em;
+  transition:color 0.2s,gap 0.2s;}
+.project-card:hover .project-link{color:var(--orange);gap:0.6rem;}
+.project-link::after{content:'→';}
+.placeholder-badge{display:inline-flex;align-items:center;gap:0.4rem;font-family:'Space Mono',monospace;font-size:0.62rem;
+  color:var(--purple-light);letter-spacing:0.08em;text-transform:uppercase;}
+.placeholder-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple);
+  box-shadow:0 0 8px rgba(155,107,255,0.6);}
+
+/* MODAL / PROJECT DETAIL */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,5,9,0.86);backdrop-filter:blur(6px);z-index:1000;
+  display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:3rem 1.25rem;}
+.modal-overlay.active{display:flex;}
+.modal-box{background:var(--deep);border:1px solid var(--border);border-radius:14px;max-width:900px;width:100%;
+  position:relative;animation:modalIn 0.3s ease;}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;width:38px;height:38px;border-radius:50%;background:var(--panel);
+  border:1px solid var(--border);color:var(--text);font-size:1.1rem;cursor:pointer;z-index:5;
+  display:flex;align-items:center;justify-content:center;transition:background 0.2s,border-color 0.2s;}
+.modal-close:hover{background:var(--panel-2);border-color:var(--orange);}
+
+.slideshow{position:relative;aspect-ratio:4/3;background:var(--panel);border-radius:14px 14px 0 0;overflow:hidden;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 0.4s ease;display:flex;flex-direction:column;}
+.slide.active{opacity:1;}
+.slide img{width:100%;height:100%;object-fit:contain;background:#000;flex:1;}
+.slide-placeholder{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;
+  background:repeating-linear-gradient(45deg,var(--panel-2),var(--panel-2) 10px,var(--panel) 10px,var(--panel) 20px);}
+.slide-placeholder-icon{font-size:2.2rem;opacity:0.4;}
+.slide-placeholder-text{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--muted);letter-spacing:0.08em;text-align:center;padding:0 2rem;}
+.slide-caption{padding:0.9rem 1.4rem;background:rgba(8,8,13,0.85);font-size:0.85rem;color:var(--text);}
+.slide-caption .step-label{color:var(--orange);font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;
+  text-transform:uppercase;display:block;margin-bottom:0.3rem;}
+
+.slide-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;
+  background:rgba(10,10,18,0.7);border:1px solid var(--border);color:var(--text);font-size:1.1rem;cursor:pointer;z-index:3;
+  display:flex;align-items:center;justify-content:center;transition:background 0.2s,border-color 0.2s;}
+.slide-nav:hover{background:rgba(43,127,255,0.25);border-color:var(--blue);}
+.slide-prev{left:1rem;} .slide-next{right:1rem;}
+.slide-dots{position:absolute;bottom:5.2rem;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:3;}
+.slide-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:all 0.25s;}
+.slide-dot.active{background:var(--orange);width:18px;border-radius:4px;}
+.slide-counter{position:absolute;top:1.2rem;left:1.2rem;font-family:'Space Mono',monospace;font-size:0.68rem;
+  color:var(--text);background:rgba(8,8,13,0.7);padding:0.3rem 0.6rem;border-radius:4px;z-index:3;}
+
+.modal-content{padding:2rem 2.2rem 2.4rem;}
+.modal-machine{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--orange);letter-spacing:0.13em;
+  text-transform:uppercase;margin-bottom:0.6rem;}
+.modal-title{font-size:1.7rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;}
+.modal-desc{color:var(--muted);font-size:0.96rem;line-height:1.75;margin-bottom:1.6rem;}
+.modal-desc strong{color:var(--text);font-weight:500;}
+.modal-skills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.8rem;}
+.video-slot{border:1px dashed var(--border);border-radius:8px;padding:1.4rem;display:flex;align-items:center;gap:1rem;
+  background:var(--panel);margin-top:0.5rem;}
+.video-slot-icon{width:42px;height:42px;border-radius:50%;background:rgba(155,107,255,0.1);display:flex;
+  align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;color:var(--purple-light);}
+.video-slot-text{font-size:0.82rem;color:var(--muted);line-height:1.5;}
+.video-slot-text strong{color:var(--text);display:block;margin-bottom:0.2rem;font-weight:500;font-size:0.88rem;}
+
+/* TEMPLATE / RESERVED PROJECT CARDS */
+.project-card.is-template{cursor:default;}
+.project-card.is-template:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.template-hero{aspect-ratio:16/9;background:repeating-linear-gradient(45deg,var(--panel-2),var(--panel-2) 10px,var(--panel) 10px,var(--panel) 20px);
+  display:flex;align-items:center;justify-content:center;}
+.template-hero-icon{font-size:1.8rem;opacity:0.35;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;max-width:1000px;}
+.about-bio{color:var(--muted);font-size:0.98rem;line-height:1.8;}
+.about-bio strong{color:var(--text);font-weight:500;}
+.about-bio p{margin-bottom:1.1rem;}
+.affil-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.9rem;}
+.affil-icon{width:36px;height:36px;border-radius:6px;background:rgba(155,107,255,0.1);display:flex;align-items:center;
+  justify-content:center;font-size:0.95rem;flex-shrink:0;color:var(--purple-light);}
+.affil-label{font-size:0.66rem;color:var(--muted);margin-bottom:0.15rem;font-family:'Space Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;}
+.affil-value{font-size:0.85rem;font-weight:500;}
+
+/* SKILLS GRID */
+.skills-section{background:var(--deep);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;max-width:1100px;}
+.skills-cat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.5rem;}
+.skills-cat-title{font-family:'Space Mono',monospace;font-size:0.66rem;color:var(--orange);letter-spacing:0.12em;
+  text-transform:uppercase;margin-bottom:0.9rem;}
+.skills-cat ul{list-style:none;}
+.skills-cat li{font-size:0.86rem;color:var(--text);padding:0.32rem 0;border-bottom:1px solid var(--border-soft);}
+.skills-cat li:last-child{border-bottom:none;}
+.skills-cat li::before{content:'—';color:var(--dim);margin-right:0.5rem;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:800px;}
+.contact-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:1.25rem;display:flex;
+  align-items:center;gap:1rem;transition:border-color 0.2s;}
+.contact-card:hover{border-color:var(--blue);}
+.contact-icon{width:38px;height:38px;background:rgba(43,127,255,0.1);border-radius:6px;display:flex;align-items:center;
+  justify-content:center;font-size:1rem;flex-shrink:0;}
+.contact-label{font-size:0.7rem;color:var(--muted);margin-bottom:0.2rem;}
+.contact-value{font-size:0.88rem;font-weight:500;word-break:break-word;}
+
+footer{border-top:1px solid var(--border-soft);padding:2rem 2.5rem;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-copy{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:0.08em;}
+.footer-school{font-size:0.78rem;color:var(--dim);}
+
+@media (max-width:680px){
+  nav{padding:1rem 1.25rem;} .nav-links{display:none;}
+  section{padding:3.5rem 1.25rem;} .hero{padding:7rem 1.25rem 2.5rem;}
+  .info-strip{padding:1.25rem;gap:1.5rem;}
+  .timeline-spine{left:10px;} .timeline-item{padding-left:2.8rem;} .timeline-dot{left:3px;}
+  .about-grid{grid-template-columns:1fr;}
+  .modal-box{max-width:100%;} .slide-nav{width:34px;height:34px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">J.G. // ME</div>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-blue"></div>
+  <div class="hero-glow-purple"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Mechanical Engineering Portfolio</div>
+    <h1>Justin Gutierrez's<br/>Mechanical Engineering Portfolio</h1>
+    <p class="hero-desc">
+      4+1 mechanical engineering student at Binghamton University's Watson College, currently interning at GE Appliances'
+      CoCreate makerspace in Stamford. I design and build — manual and CNC machining, welding, woodworking, and fixture design.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Tormach 1100M</span>
+      <span class="tag">Manual Lathe</span>
+      <span class="tag">Shopbot CNC</span>
+      <span class="tag purple">Waterjet</span>
+      <span class="tag purple">Laser Cutting</span>
+      <span class="tag">Bridgeport</span>
+      <span class="tag purple">Welding</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</div>
+
+<div class="info-strip">
+  <div class="info-item"><span class="info-label">University</span><span class="info-value">Binghamton University — Watson College</span></div>
+  <div class="info-item"><span class="info-label">Program</span><span class="info-value">Mechanical Engineering — B.S. + M.S. (4+1)</span></div>
+  <div class="info-item"><span class="info-label">Current Role</span><span class="info-value">Makerspace Intern, GE Appliances CoCreate</span></div>
+  <div class="info-item"><span class="info-label">Team</span><span class="info-value">Formula SAE — Accumulator Mechanical Subteam</span></div>
+</div>
+
+<section id="projects">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <p class="section-sub">Click any project to step through the build process — from first prototype to finished piece. Dashed markers are projects in progress, with photos coming soon.</p>
+
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<section id="about" style="background:var(--deep);border-top:1px solid var(--border-soft);">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-bio">
+      <p>I'm a <strong>mechanical engineering</strong> student finishing my B.S. and starting a 4+1 M.S. at <strong>Binghamton University's Thomas J. Watson College of Engineering</strong>. My focus is hands-on fabrication — turning a design on paper into a working, physical part.</p>
+      <p>During my time at Binghamton, I competed with <strong>Formula SAE</strong> on the <strong>accumulator mechanical subteam</strong>, where I worked on the structural and mechanical design of the car's battery enclosure.</p>
+      <p>I'm currently a <strong>makerspace intern at GE Appliances' CoCreate facility</strong> in Stamford, CT, where I support fabrication for both internal R&D projects and retail-facing builds — from custom fixtures to full-scale display cases.</p>
+      <p>Across my coursework and internships I've built proficiency with manual and CNC machining, welding, woodworking, waterjet and laser cutting, embroidery, and CAD/CAM/FEA software including <strong>Fusion 360, Creo, SolidWorks, and Ansys Workbench</strong>.</p>
+    </div>
+    <div>
+      <div class="affil-card">
+        <div class="affil-icon">⚙</div>
+        <div><div class="affil-label">Current</div><div class="affil-value">Makerspace Intern — GE Appliances CoCreate, Stamford</div></div>
+      </div>
+      <div class="affil-card">
+        <div class="affil-icon">🏎</div>
+        <div><div class="affil-label">Team</div><div class="affil-value">Formula SAE — Accumulator Mechanical Subteam</div></div>
+      </div>
+      <div class="affil-card">
+        <div class="affil-icon">🎓</div>
+        <div><div class="affil-label">Education</div><div class="affil-value">Binghamton University, Watson College — 4+1 ME</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="skills-section">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Skills &amp; Tools</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skills-cat">
+      <div class="skills-cat-title">Machining</div>
+      <ul>
+        <li>Tormach 1100M (CNC mill)</li>
+        <li>Manual lathe</li>
+        <li>Bridgeport mill</li>
+        <li>Bridgeport repair &amp; maintenance</li>
+      </ul>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-title">Cutting &amp; fabrication</div>
+      <ul>
+        <li>Waterjet cutting</li>
+        <li>Laser cutting</li>
+        <li>Laser engraving</li>
+        <li>MIG welding</li>
+      </ul>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-title">Woodworking &amp; CNC routing</div>
+      <ul>
+        <li>Shopbot CNC router</li>
+        <li>Lamination &amp; glue-ups</li>
+        <li>General woodworking</li>
+        <li>Embroidery</li>
+      </ul>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-title">3D printing</div>
+      <ul>
+        <li>Bambu 3D printer repair &amp; diagnostics</li>
+        <li>Rapid prototyping</li>
+      </ul>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-title">CAD &amp; design</div>
+      <ul>
+        <li>Autodesk Fusion 360</li>
+        <li>PTC Creo</li>
+        <li>SolidWorks</li>
+      </ul>
+    </div>
+    <div class="skills-cat">
+      <div class="skills-cat-title">CAM &amp; simulation</div>
+      <ul>
+        <li>Toolpath generation (Fusion 360)</li>
+        <li>VCarve Pro</li>
+        <li>Ansys Workbench (FEA)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <p style="color:var(--muted);margin-bottom:2rem;max-width:480px;line-height:1.7;">
+    Open to internships, co-ops, and research opportunities in precision manufacturing and mechanical design.
+  </p>
+  <div class="contact-grid">
+    <a href="https://www.linkedin.com/in/justin-gutierrez-002805331/" target="_blank" class="contact-card">
+      <div class="contact-icon">in</div>
+      <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/justin-gutierrez</div></div>
+    </a>
+    <div class="contact-card">
+      <div class="contact-icon">✉</div>
+      <div><div class="contact-label">Email</div><div class="contact-value">your.email@binghamton.edu</div></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🎓</div>
+      <div><div class="contact-label">University</div><div class="contact-value">Binghamton University, Watson College</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Justin Gutierrez — Mechanical Engineering Portfolio</span>
+  <span class="footer-school">Binghamton University · B.S./M.S. Mechanical Engineering</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script>
+const PROJECTS = [
+  {
+    id: "ice-brands",
+    num: "P-01",
+    machine: "Tormach 1100M · 3D Printing",
+    title: "Custom Ice Brands",
+    short: "Custom branding irons for GE's Ice Forge appliance — designed and machined across multiple logo iterations, materials, and a waterjet-cut display housing.",
+    skills: ["CNC Milling","CAD/CAM","Tormach 1100M","3D Printing","Waterjet","Material Selection"],
+    desc: "GE Appliances' Ice Forge turns ice cubes into perfect spheres — these custom brands let users melt a personalized logo into that ice for branded cocktails. The project moved through 3D-printed prototypes for fit and form, into aluminum and brass machining on the Tormach 1100M, and finished with a waterjet-cut granite display housing for one design.",
+    hero: "assets/ice-brands-06-hero.jpg",
+    slides: [
+      {img:"assets/ice-brands-01.jpg", label:"Initial 3D printed test print — 'CO' logo design with gear motif in the O"},
+      {img:"assets/ice-brands-02.jpg", label:"Second iteration — increased diameter, added beveled edge for improved aesthetic"},
+      {img:"assets/ice-brands-03.jpg", label:"First aluminum machining attempt — rough finish, toolpath issues, required revision"},
+      {img:"assets/ice-brands-04.jpg", label:"Final aluminum 'CO' brand — smooth finish, secured with custom soft jaws"},
+      {img:"assets/ice-brands-05.jpg", label:"Additional design — fleur-de-lis brand machined in brass"},
+      {img:"assets/ice-brands-06-hero.jpg", label:"Fleur-de-lis brand inset into a waterjet-cut granite housing"},
+      {img:"assets/ice-brands-07.jpg", label:"Personal initials brand — brass inset in a Shopbot-machined wood mount"}
+    ],
+    videoNote: "Process video coming soon — machining the brand faces on the Tormach 1100M."
+  },
+  {
+    id: "ge-display",
+    num: "P-02",
+    machine: "MIG Welding · Steel Fabrication",
+    title: "GE Monogram Appliance Displays",
+    short: "Welded steel display cases for GE's Monogram appliance line, built for retail stores like Best Buy. Built collaboratively — 8 units total.",
+    skills: ["MIG Welding","Fusion 360","Bandsaw","Team Fabrication","Steel Fabrication"],
+    desc: "Large welded steel display cases designed to showcase GE's premium Monogram refrigerators and dishwashers on retail floors. Frames were designed in Fusion 360, with steel bar stock cut to length on the bandsaw and assembled by MIG welding. I worked alongside two colleagues to weld up 8 total frames, which were then finished with cabinetry, a stone-look countertop, and branded signage.",
+    hero: "assets/ge-display-03-hero.jpg",
+    slides: [
+      {img:"assets/ge-display-01.jpg", label:"Welding the steel frame — team fabrication, one of 8 units"},
+      {img:"assets/ge-display-02.jpg", label:"Completed steel frame — painted black, ready for panel installation"},
+      {img:"assets/ge-display-03-hero.jpg", label:"Completed Monogram display — full cabinetry, countertop, and signage"}
+    ],
+    videoNote: "Process video coming soon — welding and assembly of the display frames."
+  },
+  {
+    id: "wedding-box",
+    num: "P-03",
+    machine: "Shopbot CNC Router",
+    title: "Engraved Wedding Box",
+    short: "A six-sided maple box engraved with custom DXF artwork for a client's daughter's wedding — book spines, ornate borders, and a personalized illustration.",
+    skills: ["Shopbot CNC","Fusion 360","DXF Workflow","Depth Tuning","Client Design Files"],
+    desc: "A client came in with detailed DXF files and a request to engrave them across six faces of a maple wedding box. The project required extensive testing to dial in the right level of detail and engraving depth — fine lines in the floral border designs were prone to fraying, so depth and bit selection were iterated until the cuts held cleanly. The finished box pairs a front panel of engraved book spines with an ornate decorative border panel and a personalized illustrated lid.",
+    hero: "assets/wedding-box-05-hero.jpg",
+    slides: [
+      {img:"assets/wedding-box-01.jpg", label:"Early engraving tests — decorative book spine designs"},
+      {img:"assets/wedding-box-02.jpg", label:"Testing a decorative floral panel — fine detail on plywood"},
+      {img:"assets/wedding-box-03.jpg", label:"Final front panel — resolved book spine engravings"},
+      {img:"assets/wedding-box-04.jpg", label:"All six panels engraved — laid out flat before assembly"},
+      {img:"assets/wedding-box-05-hero.jpg", label:"Fully assembled box — top and front faces"},
+      {img:"assets/wedding-box-06.jpg", label:"Side panel detail — ornate decorative frame border"},
+      {img:null, label:"Reserved — final stained and clear-coated box (coming soon)", placeholder:true}
+    ],
+    videoNote: "Process video coming soon — engraving and assembly of the box panels."
+  },
+  {
+    id: "brass-pen",
+    num: "P-04",
+    machine: "Manual Lathe",
+    title: "Brass Pen",
+    short: "A fully functional pen turned on a manual lathe, with a threaded assembly system and a standard gel refill — from 3D printed prototype to finished brass.",
+    skills: ["Manual Lathe","Turning","Threading","Parting","Brass Machining"],
+    desc: "This project started as 3D printed prototypes to dial in grip geometry and taper before committing to metal. The pen body, tip, and rear actuator are all manually turned and threaded (M8) so the assembly can be taken apart and serviced, and it's designed around a standard Parker .7 gel refill rather than a fixed ink cartridge. The final brass version was turned, threaded, and assembled into a fully working pen.",
+    hero: "assets/brass-pen-05-hero.jpg",
+    slides: [
+      {img:"assets/brass-pen-01.jpg", label:"Initial 3D printed prototypes — form and grip testing"},
+      {img:"assets/brass-pen-02.jpg", label:"Turning aluminum test stock — diameter reduction and bore drilling"},
+      {img:"assets/brass-pen-03.jpg", label:"Disassembled aluminum test pen — threaded components"},
+      {img:"assets/brass-pen-04.jpg", label:"Disassembled brass pen — internal components and gel refill"},
+      {img:"assets/brass-pen-05-hero.jpg", label:"Completed brass pen — extended and writing-ready"},
+      {img:null, label:"Reserved — action shot of the brass pen on the lathe (coming soon)", placeholder:true},
+      {img:null, label:"Reserved — detail shot of knurling/tip (coming soon)", placeholder:true}
+    ],
+    videoNote: "Process video coming soon — turning the brass pen on the manual lathe."
+  },
+  {
+    id: "sheet-metal",
+    num: "P-05",
+    machine: "MIG Welding · Steel Fabrication",
+    title: "Sheet Metal Storage Cabinet",
+    short: "A large welded storage cabinet with sliding trays, built for organizing sheet and scrap metal stock at the GE Microfactory.",
+    skills: ["MIG Welding","Fusion 360","Bandsaw","Team Fabrication","MDF Cladding"],
+    desc: "Designed in Fusion 360 and built to organize sheet and scrap metal stock on the GE Microfactory shop floor. Steel bar stock was cut to length on the bandsaw and welded into a multi-tier frame, then clad in MDF panels with several sliding storage trays for easy access to different material sizes.",
+    hero: "assets/sheet-metal-03-hero.jpg",
+    slides: [
+      {img:"assets/sheet-metal-01.jpg", label:"Welding the storage frame — team fabrication"},
+      {img:"assets/sheet-metal-02.jpg", label:"Fully welded frame — multi-level shelving structure"},
+      {img:"assets/sheet-metal-03-hero.jpg", label:"Completed sheet metal storage cabinet with sliding trays"}
+    ],
+    videoNote: "Process video coming soon — welding the storage frame."
+  },
+  {
+    id: "pool-triangle",
+    num: "P-06",
+    machine: "Shopbot CNC Router · Woodworking",
+    title: "Layered Wood Pool Triangle",
+    short: "A personalized billiards rack made from laminated maple, walnut, and oak — designed in Fusion 360, profiled on the Shopbot, and engraved as a birthday gift.",
+    skills: ["Shopbot CNC","Lamination","Fusion 360","VCarve","Engraving","Wood Finishing"],
+    desc: "This rack layers thin sheets of maple, walnut, and oak into a symmetric laminate before the triangular profile is cut on the Shopbot. Stock was cut to length on the chop saw, resawn on the bandsaw into thin sheets, and planed down to a consistent 0.25\" thickness before gluing. The final profile was designed in Fusion 360, toolpathed in VCarve with a 1/4\" flat endmill, then engraved with a personalized birthday message, stained, and clear-coated.",
+    hero: "assets/pool-triangle-08-hero.jpg",
+    slides: [
+      {img:"assets/pool-triangle-01.jpg", label:"Cutting the triangular profile — test plywood"},
+      {img:"assets/pool-triangle-02.jpg", label:"Prepping the laminate stock — maple, oak, and walnut"},
+      {img:"assets/pool-triangle-03.jpg", label:"Gluing the laminate stack — maple, walnut, oak pattern"},
+      {img:null, label:"Reserved — cured laminate panel, ready for sanding (image pending re-upload)", placeholder:true},
+      {img:"assets/pool-triangle-05.jpg", label:"Cutting the final triangle profile — layered wood blank"},
+      {img:"assets/pool-triangle-06.jpg", label:"Triangle fully profiled — before sanding and engraving"},
+      {img:"assets/pool-triangle-07.jpg", label:"Finished triangle — stained, engraved, and clear-coated"},
+      {img:"assets/pool-triangle-08-hero.jpg", label:"Triangle in use — fully racked on a pool table"}
+    ],
+    videoNote: "Process video coming soon — profiling the triangle on the Shopbot."
+  },
+  {
+    id: "bench-back",
+    num: "P-07",
+    machine: "Shopbot CNC Router",
+    title: "Park Bench — Curved Back Panel",
+    short: "A full-size outdoor bench with a Shopbot-cut wavy back panel, built and painted for public park installation.",
+    skills: ["Shopbot CNC","VCarve","Fusion 360","Assembly","Finishing"],
+    desc: "The bench's curved back profile was toolpathed in VCarve Pro and cut from an 85\" wide MDF panel on a large-format Shopbot. After the profile was cut, the back panel was assembled onto a slatted seat structure with armrests, then finished in white paint for outdoor installation in a public park.",
+    hero: "assets/bench-back-04-hero.jpg",
+    slides: [
+      {img:"assets/bench-back-01.jpg", label:"Toolpath setup in VCarve Pro — wavy profile cut"},
+      {img:"assets/bench-back-02.jpg", label:"Cutting the wavy profile — full-scale MDF panel"},
+      {img:"assets/bench-back-03.jpg", label:"Completed bench — wavy back panel installed"},
+      {img:"assets/bench-back-04-hero.jpg", label:"Completed bench — painted and ready for park installation"}
+    ],
+    videoNote: "Process video coming soon — cutting the bench back profile."
+  },
+  {
+    id: "soft-jaws",
+    num: "P-08",
+    machine: "Tormach 1100M",
+    title: "Custom Soft Jaws",
+    short: "Custom-machined soft jaws for the Tormach's vise, designed to securely hold cylindrical stock for the ice brand operations.",
+    skills: ["CNC Milling","Fixture Design","Workholding","Fusion 360"],
+    desc: "Engineered to interface with the Tormach 1100M's standard vise, these soft jaws hold cylindrical stock securely and repeatably — solving the workholding problem that made the ice brand machining possible. Photos and write-up coming soon.",
+    isTemplate: true,
+    videoNote: "Photos and process video coming soon."
+  },
+  {
+    id: "adirondack-feet",
+    num: "P-09",
+    machine: "Bridgeport Mill",
+    title: "Adirondack Chair Brass Feet",
+    short: "Custom brass feet machined on the Bridgeport to outfit a set of Adirondack chairs.",
+    skills: ["Bridgeport Mill","Brass Machining","Fixture Design"],
+    desc: "Custom brass feet designed and machined on the Bridgeport mill for an Adirondack chair build. Photos and write-up coming soon.",
+    isTemplate: true,
+    videoNote: "Photos and process video coming soon."
+  },
+  {
+    id: "benchtop",
+    num: "P-10",
+    machine: "Shopbot CNC Router",
+    title: "Maker's Benchtop",
+    short: "A custom workbench top built on the Shopbot for use in the makerspace.",
+    skills: ["Shopbot CNC","Fusion 360","Woodworking"],
+    desc: "A durable benchtop designed and cut on the Shopbot CNC router for daily use in the makerspace. Photos and write-up coming soon.",
+    isTemplate: true,
+    videoNote: "Photos and process video coming soon."
+  }
+];
+
+const timeline = document.getElementById('timeline');
+PROJECTS.forEach((p, idx) => {
+  const item = document.createElement('div');
+  item.className = 'timeline-item' + (p.isTemplate ? ' in-progress' : '');
+  if (p.isTemplate) {
+    item.innerHTML = `
+      <div class="timeline-dot"></div>
+      <div class="project-card is-template">
+        <div class="template-hero"><span class="template-hero-icon">⧉</span></div>
+        <div class="card-body">
+          <div class="project-meta">
+            <span class="project-machine">${p.machine}</span>
+            <span class="project-num">${p.num}</span>
+          </div>
+          <div class="project-title">${p.title}</div>
+          <p class="project-desc">${p.short}</p>
+          <div class="project-skills">${p.skills.map(s=>`<span class="skill-pill purple">${s}</span>`).join('')}</div>
+          <span class="placeholder-badge">Photos coming soon</span>
+        </div>
+      </div>`;
+  } else {
+    item.innerHTML = `
+      <div class="timeline-dot"></div>
+      <div class="project-card" data-id="${p.id}">
+        <img class="card-hero-img" src="${p.hero}" alt="${p.title}" loading="lazy"/>
+        <div class="card-body">
+          <div class="project-meta">
+            <span class="project-machine">${p.machine}</span>
+            <span class="project-num">${p.num}</span>
+          </div>
+          <div class="project-title">${p.title}</div>
+          <p class="project-desc">${p.short}</p>
+          <div class="project-skills">${p.skills.map(s=>`<span class="skill-pill">${s}</span>`).join('')}</div>
+          <span class="project-link">View project</span>
+        </div>
+      </div>`;
+  }
+  timeline.appendChild(item);
+});
+
+let currentSlide = 0;
+let currentProject = null;
+
+document.querySelectorAll('.project-card[data-id]').forEach(card => {
+  card.addEventListener('click', () => openModal(card.dataset.id));
+});
+
+function openModal(id) {
+  const p = PROJECTS.find(x => x.id === id);
+  currentProject = p;
+  currentSlide = 0;
+  renderModal();
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function renderModal() {
+  const p = currentProject;
+  const box = document.getElementById('modalBox');
+  const slidesHtml = p.slides.map((s, i) => `
+    <div class="slide ${i===currentSlide?'active':''}">
+      ${s.placeholder
+        ? `<div class="slide-placeholder"><span class="slide-placeholder-icon">📷</span><span class="slide-placeholder-text">${s.label}</span></div>`
+        : `<img src="${s.img}" alt="${s.label}"/>`
+      }
+      <div class="slide-caption"><span class="step-label">Step ${i+1} of ${p.slides.length}</span>${s.label}</div>
+    </div>`).join('');
+  const dotsHtml = p.slides.map((_, i) => `<div class="slide-dot ${i===currentSlide?'active':''}" data-i="${i}"></div>`).join('');
+
+  box.innerHTML = `
+    <button class="modal-close" id="modalCloseBtn">&times;</button>
+    <div class="slideshow">
+      <div class="slide-counter">${currentSlide+1} / ${p.slides.length}</div>
+      ${slidesHtml}
+      <button class="slide-nav slide-prev">&larr;</button>
+      <button class="slide-nav slide-next">&rarr;</button>
+      <div class="slide-dots">${dotsHtml}</div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-machine">${p.machine}</div>
+      <div class="modal-title">${p.title}</div>
+      <p class="modal-desc">${p.desc}</p>
+      <div class="modal-skills">${p.skills.map(s=>`<span class="skill-pill">${s}</span>`).join('')}</div>
+      <div class="video-slot">
+        <div class="video-slot-icon">▶</div>
+        <div class="video-slot-text"><strong>Process video</strong>${p.videoNote}</div>
+      </div>
+    </div>`;
+
+  document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+  box.querySelector('.slide-prev').addEventListener('click', () => changeSlide(-1));
+  box.querySelector('.slide-next').addEventListener('click', () => changeSlide(1));
+  box.querySelectorAll('.slide-dot').forEach(dot => {
+    dot.addEventListener('click', () => { currentSlide = parseInt(dot.dataset.i); renderModal(); });
+  });
+}
+
+function changeSlide(dir) {
+  const len = currentProject.slides.length;
+  currentSlide = (currentSlide + dir + len) % len;
+  renderModal();
+}
+
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target.id === 'modalOverlay') closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('modalOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowLeft') changeSlide(-1);
+  if (e.key === 'ArrowRight') changeSlide(1);
+});
+</script>
+</body>
+</html>
